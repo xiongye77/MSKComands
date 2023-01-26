@@ -45,7 +45,20 @@ Unclean Leader Election - When there is a leade election, but there are no In-Sy
 Zookeeper - a distributed data storage engine that Kafka uses to store metadata about the service, as well as using the Zookeeper leader election protocol to makde decisions about which broker is the leader for which partitions.
 
 
+Now you can list all the available topics by running the following command:
 
+kafka-topics \
+  --bootstrap-server localhost:9092 \
+  --list
+  
+ 
+Alternatively, you can also use your Apache Zookeeper endpoint. This can be considered legacy as Apache Kafka is deprecating the use of Zookeeper as new versions are being released.
+
+kafka-topics \
+  --zookeeper localhost:2181 \
+  --list
+  
+  
 
 
 # MSK Comands For Creating a Cluster and Streaming Data
@@ -59,12 +72,21 @@ Extract Kafka:
 tar -xzf kafka_2.12-2.2.1.tgz
 
 Get Cluster ARN:
+
 aws kafka describe-cluster --cluster-arn "ClusterArn" --region 
 
 Create Topic:
+
+export MYZK=$(aws kafka describe-cluster --cluster-arn $CLUSTER_ARN --output json | jq ".ClusterInfo.ZookeeperConnectString" | tr -d \")
+
+
 bin/kafka-topics.sh --create --zookeeper "ZookeeperConnectString" --replication-factor 2 --partitions 1 --topic AWSKafkaTutorialTopic
 
+
+bin/kafka-topics.sh --zookeeper $MYZK --list
+
 User the Trust store:
+
 cp /usr/lib/jvm/JDKFolder/jre/lib/security/cacerts /tmp/kafka.client.truststore.jks
 
 client.properties:
@@ -72,12 +94,16 @@ security.protocol=SSL
 ssl.truststore.location=/tmp/kafka.client.truststore.jks
 
 Get Brokers:
+
+
 aws kafka get-bootstrap-brokers --cluster-arn ClusterArn --region
 
 Producer:
+
 ./kafka-console-producer.sh --broker-list BootstrapBrokerStringTls --producer.config client.properties --topic AWSKafkaTutorialTopic
 
 Consumer:
+
 ./kafka-console-consumer.sh --bootstrap-server BootstrapBrokerStringTls --consumer.config client.properties --topic AWSKafkaTutorialTopic --from-beginning
 
 
@@ -93,13 +119,16 @@ bin/kafka-server-start.sh config/server1.properties
 bin/kafka-server-start.sh config/server2.properties
 
 GET INFORMATION FROM ZOOKEEPER ABOUT ACTIVE BROKER IDS
+
 bin/zookeeper-shell.sh localhost:2181 ls /brokers/ids
 
 GET INFORMATION FROM ZOOKEEPER ABOUT SPECIFIC BROKER BY ID
+
 bin/zookeeper-shell.sh localhost:2181 get /brokers/ids/0
 
 CREATE TOPIC
-bin/kafka-topics.sh \
+
+./kafka-topics.sh \
 --bootstrap-server localhost:9092,localhost:9093,localhost:9094 \
 --create \
 --replication-factor 3 \
@@ -107,9 +136,13 @@ bin/kafka-topics.sh \
 --topic months
 
 LIST TOPICS
-bin/kafka-topics.sh \
+
+./kafka-topics.sh \
 --bootstrap-server localhost:9092,localhost:9093,localhost:9094 \
 --list
+
+
+./kafka-topics.sh --zookeeper $MYZK --list
 
 TOPIC DETAILS
 bin/kafka-topics.sh \
