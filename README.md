@@ -73,7 +73,9 @@ tar -xzf kafka_2.12-2.2.1.tgz
 
 Get Cluster ARN:
 
-aws kafka describe-cluster --cluster-arn "ClusterArn" --region 
+CLUSTER_ARN=$(aws kafka list-clusters --query "ClusterInfoList[0].ClusterArn" --output text)
+
+aws kafka describe-cluster --cluster-arn $CLUSTER_ARN --region 
 
 Create Topic:
 
