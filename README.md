@@ -1,6 +1,8 @@
 # Kafka Terminology
 
 Kafka Terms
+
+
 Broker - the individual kafka binary running on a host, or the server running kafka. This is the main Kafka server/service.
 
 Cluster - a collection of brokers that are coordinating and working together to service producers and consumers
