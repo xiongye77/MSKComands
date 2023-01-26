@@ -144,3 +144,30 @@ bin/kafka-console-consumer.sh \
 --partition 3 \
 --offset 2
 
+
+# MSK Connect 
+![image](https://user-images.githubusercontent.com/36766101/214731613-d41845c0-d9e7-4ca2-b534-420d038e4a7d.png)
+
+![image](https://user-images.githubusercontent.com/36766101/214731734-91d65dd1-94c1-40ae-9ea5-fd677b43f931.png)
+
+
+MSK Connect is a feature of Amazon MSK that makes it easy for developers to stream data to and from their Apache Kafka clusters. MSK Connect uses Kafka Connect 2.7.1, an open-source framework for connecting Apache Kafka clusters with external systems such as databases, search indexes, and file systems
+
+
+
+# Get cluster broker list
+aws kafka  get-bootstrap-brokers --cluster-arn arn:aws:kafka:us-east-1:xyz:cluster/MSKCluster/0546f493-019f-475a-9903-272f0371ce19-6 --output text
+
+export MYBROKERS=$(aws kafka  get-bootstrap-brokers --cluster-arn arn:aws:kafka:us-east-1:xyz:cluster/MSKCluster/0546f493-019f-475a-9903-272f0371ce19-6 --output text)
+
+bin/kafka-topics.sh --bootstrap-server $MYBROKERS --list
+
+
+# Get your Zookeeper connection string
+
+aws kafka describe-cluster --cluster-arn $CLUSTER_ARN --output json | jq ".ClusterInfo.ZookeeperConnectString"
+
+export MYZK=$(aws kafka describe-cluster --cluster-arn $CLUSTER_ARN --output json | jq ".ClusterInfo.ZookeeperConnectString" | tr -d \")
+
+bin/kafka-topcs.sh --zookeeper $MYZK --list
+
