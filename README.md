@@ -1,5 +1,8 @@
 # Kafka Terminology
 
+![image](https://user-images.githubusercontent.com/36766101/214737462-355b7642-c155-42e5-bd34-da722cea5a59.png)
+
+
 Kafka Terms
 
 
@@ -143,6 +146,27 @@ bin/kafka-console-consumer.sh \
 --topic months \
 --partition 3 \
 --offset 2
+
+
+# Create MSK 
+
+Step 0 Prepare network configuration 
+
+such as vpc, subnet, security group information
+
+Step 1 Create Customer Configuration
+
+
+aws kafka create-configuration --name "WorkshopMSKConfig" --description "xxxxxxxx" --kafka-versions "2.3.1" "2.2.1" --server-properties fileb://cluster_config.txt
+
+aws kafka describe-configuration --arn $CLUSTER_ARN
+
+Step 2 Create Cluster definitation file 
+
+aws kafka create-cluster --cli-input-json file://clusterinfo.json 
+
+aws kafka describe-cluster --cluster-arn arn:aws:kafka:us-east-1:xyz:cluster/MSKWorkshop/20a94343-552f-4298-9076-99673162e023-6 | grep -i state
+
 
 
 # MSK Connect 
