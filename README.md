@@ -205,6 +205,12 @@ aws kafka describe-cluster --cluster-arn arn:aws:kafka:us-east-1:xyz:cluster/MSK
 
 
 # MSK Connect 
+m![image](https://user-images.githubusercontent.com/36766101/221322858-713f2cf2-b3e7-4fc6-95e5-72fbb6998b5c.png)
+![image](https://user-images.githubusercontent.com/36766101/221323322-699fbb09-c103-4bfd-b6bb-7187b3eb2786.png)
+![image](https://user-images.githubusercontent.com/36766101/221323401-1aa9da05-fdfd-41ac-91db-84ac9b858a01.png)
+
+
+
 ![image](https://user-images.githubusercontent.com/36766101/214731613-d41845c0-d9e7-4ca2-b534-420d038e4a7d.png)
 
 ![image](https://user-images.githubusercontent.com/36766101/214731734-91d65dd1-94c1-40ae-9ea5-fd677b43f931.png)
@@ -212,6 +218,16 @@ aws kafka describe-cluster --cluster-arn arn:aws:kafka:us-east-1:xyz:cluster/MSK
 
 MSK Connect is a feature of Amazon MSK that makes it easy for developers to stream data to and from their Apache Kafka clusters. MSK Connect uses Kafka Connect 2.7.1, an open-source framework for connecting Apache Kafka clusters with external systems such as databases, search indexes, and file systems
 
+
+Kafka Connect provides a framework for moving data between Kafka and other systems. Moreover, a variety of useful connectors already exist to make this process even easier for common use cases. For example,We can use Kafka Connect to ingest data from an external database into Kafka. We will use the Java Database Connectivity (JDBC) Connector to automatically load data from a table in a PostgreSQL database into a Kafka topic.
+![image](https://user-images.githubusercontent.com/36766101/221330654-d41f023d-2404-40d0-ba01-c41a656ffc8d.png)
+
+![image](https://user-images.githubusercontent.com/36766101/221330791-4e45d53f-76a4-4825-96e8-99943c0b1d67.png)
+![image](https://user-images.githubusercontent.com/36766101/221331000-5155abca-8aaf-43f1-943f-67f38ee57109.png)
+
+
+# Schema Registry
+![image](https://user-images.githubusercontent.com/36766101/221324576-2a152780-0727-4142-9563-7acda4ac165c.png)
 
 
 # Get cluster broker list
