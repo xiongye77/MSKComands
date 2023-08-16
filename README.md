@@ -242,7 +242,16 @@ bin/kafka-topics.sh --bootstrap-server $MYBROKERS --list
 
 aws kafka describe-cluster --cluster-arn $CLUSTER_ARN --output json | jq ".ClusterInfo.ZookeeperConnectString"
 
+
+
 export MYZK=$(aws kafka describe-cluster --cluster-arn $CLUSTER_ARN --output json | jq ".ClusterInfo.ZookeeperConnectString" | tr -d \")
 
 bin/kafka-topcs.sh --zookeeper $MYZK --list
 
+
+
+
+# Kafka Brokers and Zookeepers
+![image](https://github.com/xiongye77/MSKComands/assets/36766101/19d13242-606c-4062-bcaf-c6dbb5866fa7)
+
+![image](https://github.com/xiongye77/MSKComands/assets/36766101/204f5561-1b49-4996-a019-c1f3256ccf89)
